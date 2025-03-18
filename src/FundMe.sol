@@ -1,22 +1,17 @@
-// Get funds from users
-// Withdraw funds
-// Set a minimum funding value in USD
+// SPDX-License-Identifier: MIT
+pragma solidity  ^0.8.18;
 
-// SPDX-License-Identifier: UNLICENSED
+import {AggregatorV3Interface} from "@chainlink/contracts/src/v0.8/shared/interfaces/AggregatorV3Interface.sol";
 
-pragma solidity ^0.8.13;
+
 
 contract FundMe {
-  
-  uint256 public minimumUSD = 5
+    function fund()public  payable  {
+        require(msg.value >= 1e18, "not enough");
 
-  function fund() public payable{
-    // Allow users to send $
-    // Have a minimum $ sent 
-    // How to send ETH to a contract
-    require(msg.value > minimumUSD, "didn't send enough ETH"); // 1e18 = 1 ETH 
-  }
+    }
 
-  function withdraw() public {}
-
+    function getVersion() public view  returns (uint256) {
+        return AggregatorV3Interface(0x694AA1769357215DE4FAC081bf1f309aDC325306).version();
+    }
 }
