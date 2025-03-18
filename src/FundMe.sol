@@ -21,7 +21,7 @@ contract FundMe {
             /*uint timeStamp*/,
             /*uint80 answeredInRound*/
         )= price.latestRoundData();
-        return uint256(answer) * 1e18;
+        return uint256(answer) * 1e10;
     }
 
     function getConversionRate(uint256 ethAmount) public  view  returns (uint256) {
