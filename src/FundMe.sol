@@ -21,6 +21,17 @@ contract FundMe {
             uint256 funder = funders[fundersIndex];
             addressToAmountFunded[funder] = 0;
         };
+        // reset array 
+        funders = new address[](0);
+
+        // transfer 
+        //payable(msg.sender).transfer(address(this).balance);
+        // send
+        //bool sendStatus = payable(msg.sender).send(address(this).balance);
+        //require(sendStatus, "Send Failed");
+        // call
+        (bool callStatus, bytes callData) = payable(msg.sender).call{value:address(this).balance("")}(""); //recommended way
+        require(callStatus, "Call Failed");
     }
 
     function getPrice() public view returns (uint256) {
