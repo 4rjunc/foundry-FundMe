@@ -12,7 +12,15 @@ contract FundMe {
     function fund()public  payable  {
         require(getConversionRate(msg.value) >= minimumUSD, "not enough");
         funders.push(msg.sender);
-        addressToAmountFunded[msg.sender] = addressToAmountFunded[msg.sender] + msg.value;
+        addressToAmountFunded[msg.sender] +=  msg.value;
+    }
+
+    function withdraw() public  {
+        for (uint256 fundersIndex = 0; fundersIndex < funders.length; fundersIndex++) 
+        {
+            uint256 funder = funders[fundersIndex];
+            addressToAmountFunded[funder] = 0;
+        };
     }
 
     function getPrice() public view returns (uint256) {
