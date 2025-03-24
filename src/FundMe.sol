@@ -9,6 +9,12 @@ contract FundMe {
     uint256 public minimumUSD = 5e18;
     address[] public funders;
     mapping(address funders => uint256 amount) public addressToAmountFunded;
+    address public owner;
+
+    constructor(){
+        owner = msg.sender;
+    }
+
     function fund()public  payable  {
         require(getConversionRate(msg.value) >= minimumUSD, "not enough");
         funders.push(msg.sender);
@@ -16,6 +22,7 @@ contract FundMe {
     }
 
     function withdraw() public  {
+        require(msg.sender == owner, "Not Owner");
         for (uint256 fundersIndex = 0; fundersIndex < funders.length; fundersIndex++) 
         {
             uint256 funder = funders[fundersIndex];
