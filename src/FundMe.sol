@@ -21,8 +21,7 @@ contract FundMe {
         addressToAmountFunded[msg.sender] +=  msg.value;
     }
 
-    function withdraw() public  {
-        require(msg.sender == owner, "Not Owner");
+    function withdraw() public onlyOwner  {
         for (uint256 fundersIndex = 0; fundersIndex < funders.length; fundersIndex++) 
         {
             uint256 funder = funders[fundersIndex];
@@ -57,5 +56,10 @@ contract FundMe {
         uint256 ethPrice = getPrice();
         uint256 ethAmountInUsd = (ethPrice * ethAmount) / 1e18;
         return ethAmountInUsd;
+    }
+
+    modifier  onlyOwner(){
+        require(msg.sender == owner, "Only Owner");
+        _;
     }
 }
