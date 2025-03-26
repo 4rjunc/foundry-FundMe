@@ -3,6 +3,8 @@ pragma solidity  ^0.8.18;
 
 import {AggregatorV3Interface} from "@chainlink/contracts/src/v0.8/shared/interfaces/AggregatorV3Interface.sol";
 
+error NotOwner();
+
 contract FundMe {
     uint256 public minimumUSD = 5e18;
     address[] public funders;
@@ -57,7 +59,8 @@ contract FundMe {
     }
 
     modifier  onlyOwner(){
-        require(msg.sender == owner, "Only Owner");
+        //require(msg.sender == owner, "Only Owner");
+        if(msg.sender != owner) { return NotOwner();}
         _;
     }
 }
