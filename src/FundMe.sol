@@ -3,7 +3,7 @@ pragma solidity  ^0.8.18;
 
 import {AggregatorV3Interface} from "@chainlink/contracts/src/v0.8/shared/interfaces/AggregatorV3Interface.sol";
 
-error NotOwner();
+error NotOwner(); // Custom Erros
 
 contract FundMe {
     uint256 public minimumUSD = 5e18;
